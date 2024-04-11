@@ -1,50 +1,51 @@
 import { useEffect, useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
 import './App.css'
+import { extractTitles, fetchImageFromStream, selectRandomTitle } from './utils';
 
-async function fetchImageFromStream(stream: ReadableStream) {
-  const reader = stream.getReader();
-  const chunks = [];
-
-  while (true) {
-    const { done, value } = await reader.read();
-
-    if (done) {
-      break;
-    }
-
-    chunks.push(value);
-  }
-
-  const blob = new Blob(chunks, { type: 'image/jpeg' }); // Adjust type based on actual image format
-  const imageUrl = URL.createObjectURL(blob);
-  console.log(imageUrl)
-  return imageUrl;
-}
+const BASE_URL = 'https://frenzy.yikew40375.workers.dev';
 
 function App() {
   const [count, setCount] = useState(0)
   const [imageData, setImageData] = useState<string | null>(null);
+  const [options, setOptions] = useState<string[] | null>(null);
 
-  const handleGetImage = async ()=>{
-    const url = 'https://frenzy.yikew40375.workers.dev/';
-    const resp = await fetch(url)
-    console.log(resp.body)
-    if(resp.body){
-    const img = await fetchImageFromStream(resp.body);
-    setImageData(img);
+  const handleGetTitles = async (query: string) => {
+    const resp = await fetch(`${BASE_URL}/options?query=${query}`);
+    const response = await resp.json();
+    if (response && response.text) {
+      return response.text;
     }
+
+    return '';
   }
-  
-  useEffect(()=>{
-    handleGetImage()
+
+  const handleGetImage = async (title: string) => {
+    const resp = await fetch(`${BASE_URL}/image?title=${title}`)
+    if (resp.body) {
+      const img = await fetchImageFromStream(resp.body);
+      return img;
+    }
+
+    return '';
+  }
+
+  const getQuestion = async ()=> {
+    const titles = await handleGetTitles('sea');
+    const formattedTitles =  extractTitles(titles);
+    setOptions(formattedTitles);
+    const randomTitle = selectRandomTitle(formattedTitles);
+    const img = await handleGetImage(randomTitle);
+    setImageData(img);
+  }
+
+  useEffect(() => {
+    getQuestion();
   }, [])
 
   return (
     <>
       <div>
-        {imageData && <img src={imageData} className="logo react" alt="React logo" />}
+        {imageData && <img src={imageData} className="question" alt="question img" />}
       </div>
       <div className="card">
         <button onClick={() => setCount((count) => count + 1)}>
