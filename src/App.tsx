@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import './App.css'
 import { extractTitles, fetchImageFromStream, selectRandomTitle } from './utils';
 import { randomTopics } from './random-topics';
+import Landing from './components/Landing';
+import Header from './components/Header';
 
 const BASE_URL = 'https://frenzy.yikew40375.workers.dev';
 
@@ -46,23 +48,24 @@ function App() {
   }
 
   useEffect(() => {
-    getQuestion();
+    // getQuestion();
   }, [])
 
   return (
-    <>
+    <div className='container'>
+      <Header/>
+      <div className='content'>
       <div>
         {imageData && <img src={imageData} className="question" alt="question img" />}
       </div>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+     <Landing/>
+     </div>
+     <div className='footer'>
       <p className="read-the-docs">
         Project by Shweta Kale for Cloudflare dev.to challenge
       </p>
-    </>
+      </div>
+    </div>
   )
 }
 
