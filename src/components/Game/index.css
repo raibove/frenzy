@@ -1,0 +1,49 @@
+/* QuizComponent.css */
+.quiz-container {
+  text-align: center;
+  margin-top: 50px;
+}
+
+.quiz-image {
+  max-height: 400px; /* Adjust as needed */
+}
+
+.options {
+  margin-top: 20px;
+}
+
+.option {
+  padding: 10px 20px;
+  margin: 5px;
+  border: 2px solid #333;
+  background-color: transparent;
+  color: #333;
+  cursor: pointer;
+  outline: none;
+  transition: background-color 0.3s;
+}
+
+.option:hover {
+  background-color: #eee;
+}
+
+.correct {
+  background-color: green !important;
+}
+
+.wrong {
+  background-color: red !important;
+}
+
+.animate-background {
+  animation: changeBackground 2s linear forwards;
+}
+
+@keyframes changeBackground {
+  0% {
+    background-position: 0% 0%;
+  }
+  100% {
+    background-position: 100% 100%;
+  }
+}

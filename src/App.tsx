@@ -1,14 +1,14 @@
-import { useEffect, useState } from 'react'
-import './App.css'
-import { extractTitles, selectRandomTitle } from './utils';
-import { randomTopics } from './random-topics';
-import Landing from './components/Landing';
-import Header from './components/Header';
-import { Routes, Route } from 'react-router-dom';
-import { QuestionData } from './types';
-import Game from './components/Game';
+import { useEffect, useState } from "react";
+import "./App.css";
+import { extractTitles, selectRandomTitle } from "./utils";
+import { randomTopics } from "./random-topics";
+import Landing from "./components/Landing";
+import Header from "./components/Header";
+import { Routes, Route } from "react-router-dom";
+import { QuestionData } from "./types";
+import Game from "./components/Game";
 
-const BASE_URL = 'https://frenzy.yikew40375.workers.dev';
+const BASE_URL = "https://frenzy.yikew40375.workers.dev";
 
 function App() {
   const [questions, setQuestions] = useState<QuestionData[]>([]);
@@ -23,11 +23,11 @@ function App() {
       return response.text;
     }
 
-    return '';
-  }
+    return "";
+  };
 
   const handleGetImage = async (title: string) => {
-    const resp = await fetch(`${BASE_URL}/image?title=${title}`)
+    const resp = await fetch(`${BASE_URL}/image?title=${title}`);
     // const r = await resp.blob();
     // const url = URL.createObjectURL( r );
 
@@ -35,10 +35,11 @@ function App() {
     const blob = new Blob([buff]);
     const url = URL.createObjectURL(blob);
     if (url) return url;
-    return '';
-  }
+    return "";
+  };
 
   const getQuestion = async () => {
+    console.log("get question", questions.length);
     const randomTopic = selectRandomTitle(randomTopics);
     const titles = await handleGetTitles(randomTopic);
     const formattedTitles = extractTitles(titles);
@@ -48,32 +49,54 @@ function App() {
     const questionData: QuestionData = {
       options: formattedTitles,
       imageData: img,
-      answer: randomTitle
+      answer: randomTitle,
+    };
+    setQuestions([...questions, questionData]);
+
+    if (window.location.pathname === "/quiz" && currentQuestion === -1) {
+      console.log("updated currentQuestion");
+      setCurrentQuestion(0);
     }
-    setQuestions([...questions, questionData])
-    getQuestion();
-  }
+
+    // if (questions.length < 3) {
+    //   setTimeout(() => {
+    //     getQuestion();
+    //   }, 1000);
+    // }
+  };
 
   useEffect(() => {
     getQuestion();
-  }, [])
+  }, []);
 
   return (
-    <div className='container'>
+    <div className="container">
       <Header />
-      <div className='content'>
+      <div className="content">
         <Routes>
-          <Route path="/" element={<Landing setCurrentQuestion={setCurrentQuestion}/>} />
-          <Route path='/quiz' element={<Game questions={questions} currentQuestionNo={currentQuestion}/>} />
+          <Route
+            path="/"
+            element={<Landing setCurrentQuestion={setCurrentQuestion} />}
+          />
+          <Route
+            path="/quiz"
+            element={
+              <Game
+                questions={questions}
+                currentQuestionNo={currentQuestion}
+                setCurrentQuestion={setCurrentQuestion}
+              />
+            }
+          />
         </Routes>
       </div>
-      <div className='footer'>
+      <div className="footer">
         <p className="read-the-docs">
           Project by Shweta Kale for Cloudflare dev.to challenge
         </p>
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
