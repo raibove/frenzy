@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import './App.css'
-import { extractTitles, fetchImageFromStream, selectRandomTitle } from './utils';
+import { extractTitles, selectRandomTitle } from './utils';
 import { randomTopics } from './random-topics';
 import Landing from './components/Landing';
 import Header from './components/Header';
