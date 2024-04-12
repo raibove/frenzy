@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import './App.css'
 import { extractTitles, fetchImageFromStream, selectRandomTitle } from './utils';
+import { randomTopics } from './random-topics';
 
 const BASE_URL = 'https://frenzy.yikew40375.workers.dev';
 
@@ -30,7 +31,8 @@ function App() {
   }
 
   const getQuestion = async ()=> {
-    const titles = await handleGetTitles('sea');
+    const randomTopic = selectRandomTitle(randomTopics);
+    const titles = await handleGetTitles(randomTopic);
     const formattedTitles =  extractTitles(titles);
     setOptions(formattedTitles);
     const randomTitle = selectRandomTitle(formattedTitles);
