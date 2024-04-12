@@ -22,10 +22,15 @@ function App() {
 
   const handleGetImage = async (title: string) => {
     const resp = await fetch(`${BASE_URL}/image?title=${title}`)
-    if (resp.body) {
-      const img = await fetchImageFromStream(resp.body);
-      return img;
-    }
+    const buff = await resp.arrayBuffer();
+    const blob = new Blob([buff]);
+    const url = URL.createObjectURL( blob );
+
+    if(url) return url;
+    // if (resp.body) {
+    //   const img = await fetchImageFromStream(resp.body);
+    //   return img;
+    // }
 
     return '';
   }
