@@ -1,0 +1,20 @@
+.scorecard {
+    width: 300px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #f3f3f3;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.score {
+    font-size: 24px;
+    text-align: center;
+    color: #4caf50;
+}
+
+.total {
+    font-size: 24px;
+    text-align: center;
+    color: #333;
+}

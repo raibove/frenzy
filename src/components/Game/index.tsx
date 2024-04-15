@@ -1,65 +1,65 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { QuestionData } from "../../types";
 import "./index.css";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   questions: QuestionData[];
   currentQuestionNo: number;
-  setCurrentQuestion: (questionNo: number) => void;
+  setCurrentQuestionNo: (questionNo: number) => void;
+  loading: boolean;
+  setLoading: (loading: boolean) => void;
+  getQuestion: (showLoading: boolean) => void;
+  setCorrectAnswers: React.Dispatch<React.SetStateAction<number>>
 }
 
 const Game = (props: Props) => {
-  const [currentQuestion, setCurrentQuestion] = useState<QuestionData | null>(
-    null,
-  );
   const [selectedOption, setSelectedOption] = useState<null | string>(null);
-  useEffect(() => {
-    console.log(
-      "<< totlal questions",
-      props.questions.length,
-      props.currentQuestionNo,
-    );
-    if (
-      props.currentQuestionNo < 0 ||
-      props.currentQuestionNo > props.questions.length
-    ) {
-      setCurrentQuestion(null);
-    } else {
-      setCurrentQuestion(props.questions[props.currentQuestionNo]);
-    }
-  }, [props.currentQuestionNo]);
+
+  const navigate = useNavigate();
 
   const checkAnswer = (option: string) => {
     setSelectedOption(option);
-    // setIsCorrect(option === correctAnswer);
+    if(option === props.questions[props.currentQuestionNo].answer) {
+      props.setCorrectAnswers((prevCorrectAns)=> { return prevCorrectAns+1} )
+    }
     setTimeout(() => {
-      setSelectedOption(null);
-      //   setIsCorrect(false);
+      props.setCurrentQuestionNo(props.currentQuestionNo + 1);
+      const showLoading = props.questions.length - 1 <= props.currentQuestionNo; 
+      props.getQuestion(showLoading);
     }, 2000);
   };
 
   return (
     <div>
-      {currentQuestion && (
+      { props.loading && !props.questions[props.currentQuestionNo] &&
+        (
+          <div>
+            Loading
+          </div>
+        )
+      }
+      {!props.loading && props.questions[props.currentQuestionNo] && (
         <div className="quiz-container">
+          <p className="ques">Guess the prompt for image below</p>
           <img
-            src={currentQuestion.imageData}
-            alt={currentQuestion.answer}
+            src={props.questions[props.currentQuestionNo].imageData}
+            alt={props.questions[props.currentQuestionNo].answer}
             className="quiz-image"
           />
           <div className="options">
-            {currentQuestion.options.map((option, index) => (
+            {props.questions[props.currentQuestionNo].options.map((option, index) => (
               <button
                 key={index}
-                className={`option ${selectedOption === option ? (selectedOption === currentQuestion.answer ? "correct" : "wrong") : ""}`}
+                className={`option ${selectedOption === option ? (selectedOption === props.questions[props.currentQuestionNo].answer ? "correct" : "wrong") : ""}`}
                 onClick={() => checkAnswer(option)}
-                //    disabled={selectedOption !== null}
               >
                 {option}
               </button>
             ))}
           </div>
-          answer: {currentQuestion.answer}
+          {/* answer: {props.questions[props.currentQuestionNo].answer} */}
+          <button onClick={()=>{navigate('/score')}} style={{marginTop: '7vh'}}>End Game</button>
         </div>
       )}
     </div>

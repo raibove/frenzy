@@ -1,18 +1,22 @@
-/* QuizComponent.css */
 .quiz-container {
   text-align: center;
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 .quiz-image {
-  max-height: 400px; /* Adjust as needed */
+  max-width: 40%; /* Image will scale down to fit its container */
+  height: auto; /* Maintain aspect ratio */
 }
 
 .options {
   margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap; /* Allow options to wrap to the next line if necessary */
+  justify-content: center; /* Center options horizontally */
 }
 
 .option {
+  flex: 1; /* Equal width for all options */
   padding: 10px 20px;
   margin: 5px;
   border: 2px solid #333;
@@ -21,6 +25,8 @@
   cursor: pointer;
   outline: none;
   transition: background-color 0.3s;
+  font-size: 16px;
+  flex-basis: 45%;
 }
 
 .option:hover {
@@ -29,21 +35,30 @@
 
 .correct {
   background-color: green !important;
+  color: white;
 }
 
 .wrong {
   background-color: red !important;
+  color: white;
 }
 
-.animate-background {
-  animation: changeBackground 2s linear forwards;
+.ques{
+  color: #888;
+  font-weight: 600;
+  font-size: 20px;
 }
 
-@keyframes changeBackground {
-  0% {
-    background-position: 0% 0%;
+@media screen and (max-width: 768px) {
+
+  .options {
+    flex-direction: column; /* Stack options vertically */
+    align-items: center; /* Center options vertically */
   }
-  100% {
-    background-position: 100% 100%;
+
+  .option {
+    flex-basis: auto; /* Reset flex-basis for full width on smaller screens */
+    width: 80%; 
+    font-size: 13px;
   }
 }

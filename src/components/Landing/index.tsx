@@ -2,9 +2,9 @@ import { useNavigate } from "react-router-dom";
 import "./index.css";
 
 const Landing = ({
-  setCurrentQuestion,
+  setCurrentQuestionNo,
 }: {
-  setCurrentQuestion: (question: number) => void;
+  setCurrentQuestionNo: (question: number) => void;
 }) => {
   const navigate = useNavigate();
   return (
@@ -16,7 +16,7 @@ const Landing = ({
       </p>
       <button
         onClick={() => {
-          setCurrentQuestion(0);
+          setCurrentQuestionNo(0);
           navigate("/quiz");
         }}
       >
