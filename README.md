@@ -1,30 +1,24 @@
-# React + TypeScript + Vite
+# Frenzy - Guess the prompt game
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to Frenzy, a fun and engaging guessing game where you put your creativity and intuition to the test! In Frenzy, you'll be presented with AI-generated images and tasked with guessing the prompt associated with each image. Are you ready to join the frenzy?
 
-Currently, two official plugins are available:
+## How to Play
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. **Launch the Game**: Visit the Frenzy website or app to get started.
+2. **Guess the Title**: You'll be presented with an AI-generated image along with multiple title options. Use your intuition and deductive skills to select the correct title that best describes the image.
+3. **Earn Points**: For each correct guess, you'll earn points and unlock new levels. Can you climb to the top of the leaderboard?
+4. **Challenge Yourself**: Test your skills with increasingly challenging images and titles. The more you play, the sharper your intuition becomes!
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Project created using Cloudflare workers AI for [Cloudflare challenge](https://dev.to/t/cloudflarechallenge).
 
-- Configure the top-level `parserOptions` property like this:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+You can try project [here](https://a5d2d4dd.frenzy-85h.pages.dev)
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Contributing
+
+We welcome contributions from the community to enhance and improve Frenzy. Whether you're a developer, designer, or gaming enthusiast, there are plenty of ways to get involved. Check out our GitHub repository for more information on how to contribute.
+
+## Feedback and Support
+
+Have feedback or encountered an issue while playing Frenzy? We'd love to hear from you! Reach out to our support team or open an issue on GitHub, and we'll do our best to assist you.

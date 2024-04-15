@@ -4,8 +4,8 @@
 }
 
 .quiz-image {
-  max-width: 40%; /* Image will scale down to fit its container */
-  height: auto; /* Maintain aspect ratio */
+  /* max-width: 40%; Image will scale down to fit its container */
+  height: 40vh; /* Maintain aspect ratio */
 }
 
 .options {
