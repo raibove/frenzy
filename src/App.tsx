@@ -119,7 +119,7 @@ function App() {
       </div>
       <div className="footer">
         <p className="read-the-docs">
-          Project by Shweta Kale for Cloudflare dev.to challenge
+          Project <a href="https://twitter.com/shweta_kale1">Shweta Kale</a> 
         </p>
       </div>
     </div>

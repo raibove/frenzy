@@ -35,7 +35,7 @@ const Game = (props: Props) => {
       { props.loading && !props.questions[props.currentQuestionNo] &&
         (
           <div>
-            Loading
+            Loading...
           </div>
         )
       }
